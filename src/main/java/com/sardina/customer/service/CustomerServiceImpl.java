@@ -4,6 +4,7 @@ import com.sardina.customer.model.Customer;
 import com.sardina.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,28 +14,27 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Transactional
     @Override
     public void add(Customer customer) {
-        //TODO: add(Customer c)
-    }
+        customerRepository.add(customer); }
 
+    @Transactional
     @Override
     public void update(Customer customer) {
-        //TODO: update(Customer c)
-    }
+        customerRepository.update(customer); }
 
     @Override
     public Customer getById(int id) {
-        return null;
-    }
+        return customerRepository.getById(id); }
 
     @Override
     public List<Customer> getAll() {
-        return null;
-    }
+        return customerRepository.getAll(); }
 
+    @Transactional
     @Override
     public void delete(int id) {
-        //TODO: delete(int i)
-    }
-}
+        customerRepository.delete(id); }
+
+} //=== end CustomerServiceImpl implements CustomerService {}
