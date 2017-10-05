@@ -2,6 +2,7 @@ package com.sardina.customer.common;
 
 import com.sardina.customer.model.Customer;
 
+import java.util.List;
 import java.util.Random;
 
 public class CustomerUtils {
@@ -19,6 +20,16 @@ public class CustomerUtils {
             customer.setPhone(phone);
             customer.setEmail(email);
         return customer;
+    }
+
+    public static Customer findInList(List<Customer> customers, String first, String last) {
+        // Find the new person in the list
+        for (Customer customer : customers) {
+            if (customer.getFirstName().equals(first) && customer.getLastName().equals(last)) {
+                return customer;
+            }
+        }
+        return null;
     }
 
 

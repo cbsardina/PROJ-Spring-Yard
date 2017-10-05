@@ -12,8 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.sardina.customer.common.CustomerUtils.createTestCustomer;
+import static com.sardina.customer.common.CustomerUtils.findInList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,6 +37,8 @@ public class CustomerServiceTest {
         customer1.setFirstName("Calvin");
         Assert.assertEquals(customer1.getFirstName(), "Calvin");
         Assert.assertFalse("Test that customer objects are not equal:", customer1.equals(customer2));
+        customerService.delete(customer1.getId());
+        customerService.delete(customer2.getId());
     }
 
     @Test
@@ -62,19 +66,48 @@ public class CustomerServiceTest {
         Assert.assertFalse("Verify customer1 lastName was updated:", customer1.getLastName().contentEquals(customer3.getLastName()));
         Assert.assertFalse("Verify customer1 emailName was updated:", customer1.getEmail().contentEquals(customer3.getEmail()));
         Assert.assertFalse("Verify customer1 phoneName was updated:", customer1.getPhone().contentEquals(customer3.getPhone()));
-    }
-
-    //TODO: THIS TEST MAY HAVE TO BE UPDATED
-    @Test
-    public void testDelete() {
-        Customer customer1 = createTestCustomer();
-            customerService.add(customer1);
-
-        Assert.assertNotNull("Verify customer1 exists:", customer1);
 
         customerService.delete(customer1.getId());
+        customerService.delete(customer2.getId());
+        customerService.delete(customer3.getId());
+    }
 
-        Assert.assertEquals(0 ,customer1.getId());
+    @Test
+    public void testDelete() {
+        int initialDBSize = customerService.getAll().size();
+
+        Customer customer1 = createTestCustomer();
+            String cust1LastName = customer1.getLastName();
+            String cust1FirstName = customer1.getFirstName();
+        Customer customer2 = createTestCustomer();
+            String cust2LastName = customer2.getLastName();
+            String cust2FirstName = customer2.getFirstName();
+        customerService.add(customer1);
+        customerService.add(customer2);
+
+        List<Customer> customers = new ArrayList<>();
+
+        customers.addAll(customerService.getAll());
+        Assert.assertNotNull("Verify customers is now not null:", customers);
+
+        int afterAdd2DbSize = customerService.getAll().size();
+
+        Assert.assertTrue("Verify that original DB size does not equal current after adding 2: ", initialDBSize != afterAdd2DbSize);
+        int result = afterAdd2DbSize - initialDBSize;
+        Assert.assertTrue("Verify DB increased by 2: ", result == 2);
+
+        List<Customer> deleteList = new ArrayList<>();
+        Customer del1 = findInList(customers, cust1FirstName, cust1LastName);
+            int c1Delete = del1.getId();
+        Customer del2 = findInList(customers, cust2FirstName, cust2LastName);
+            int c2Delete = del2.getId();
+
+        customerService.delete(c1Delete);
+        customerService.delete(c2Delete);
+
+        int afterDeleteDBsize = customerService.getAll().size();
+
+        Assert.assertTrue("Verify final DB size equals original DB size", afterDeleteDBsize == initialDBSize);
 
     }
 
