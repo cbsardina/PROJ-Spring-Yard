@@ -64,6 +64,7 @@ public class CustomerServiceTest {
         Assert.assertFalse("Verify customer1 phoneName was updated:", customer1.getPhone().contentEquals(customer3.getPhone()));
     }
 
+    //TODO: THIS TEST MAY HAVE TO BE UPDATED
     @Test
     public void testDelete() {
         Customer customer1 = createTestCustomer();
@@ -73,7 +74,7 @@ public class CustomerServiceTest {
 
         customerService.delete(customer1.getId());
 
-        Assert.assertNull("Verify customer1 is deleted:",customer1.getId());
+        Assert.assertEquals(0 ,customer1.getId());
 
     }
 
