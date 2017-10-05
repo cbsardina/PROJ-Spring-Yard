@@ -26,19 +26,27 @@ public class CustomerServiceTest {
 
     @Test
     public void testAddGet() {
-        Customer customer1 = createTestCustomer();
-        Customer customer2 = createTestCustomer();
-            customerService.add(customer1);
-            customerService.add(customer2);
+        String firstName = "Joey";
+        String lastName = "BaggaDoughnuts";
 
-        Assert.assertNotNull(customer1);
+        Customer customer1 = new Customer();
+        customer1.setFirstName(firstName);
+        customer1.setLastName(lastName);
+            customerService.add(customer1);
+
+        List<Customer> customers = customerService.getAll();
+            System.out.println(customers);
+        Customer customer2 = findInList(customers, firstName, lastName);
         Assert.assertNotNull(customer2);
 
-        customer1.setFirstName("Calvin");
-        Assert.assertEquals(customer1.getFirstName(), "Calvin");
-        Assert.assertFalse("Test that customer objects are not equal:", customer1.equals(customer2));
-        customerService.delete(customer1.getId());
+        Customer customer3 = customerService.getById(customer2.getId());
+        Assert.assertNotNull(customer3);
+        Assert.assertEquals(firstName, customer3.getFirstName());
+        Assert.assertEquals(lastName, customer3.getLastName());
+
+        customerService.delete(customer3.getId());
         customerService.delete(customer2.getId());
+        customerService.delete(customer1.getId());
     }
 
     @Test
@@ -96,7 +104,6 @@ public class CustomerServiceTest {
         int result = afterAdd2DbSize - initialDBSize;
         Assert.assertTrue("Verify DB increased by 2: ", result == 2);
 
-        List<Customer> deleteList = new ArrayList<>();
         Customer del1 = findInList(customers, cust1FirstName, cust1LastName);
             int c1Delete = del1.getId();
         Customer del2 = findInList(customers, cust2FirstName, cust2LastName);
