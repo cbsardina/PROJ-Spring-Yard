@@ -1,0 +1,19 @@
+INDEX:
+    - home page
+    - link to customers page
+
+CUSTOMERS PAGE:
+    - shows all customers by id
+    - id is a link to "drill down" to view an individual customer (viewCustomer page)
+    - has a link to the add customer page
+
+ADD CUSTOMER PAGE:
+    - shows the fields in a form with an ADD button to submit the form
+    - after adding, shows customers page
+
+VIEW CUSTOMER:
+    - shows all customer fields
+    - has a back button to return to the customers page
+
+
+The controller will use the '@Autowired CustomerService' reference (eg: the route that returns the page that shows all customers will call the method on 'CustomerService' to get all the list of customers and add the list to the model).

@@ -1,18 +1,15 @@
 package com.sardina.customer.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sardina.customer.model.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.sardina.customer.common.CustomerUtils.createTestCustomer;
 import static com.sardina.customer.common.CustomerUtils.findInList;
