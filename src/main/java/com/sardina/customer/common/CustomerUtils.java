@@ -10,7 +10,7 @@ public class CustomerUtils {
         Random random = new Random();
         String firstName = "custFirst" + random.nextInt(10000);
         String lastName = "custLast" + random.nextInt(10000);
-        String phone = "803" + random.nextInt(1000) + "-" + random.nextInt(10000);
+        String phone = "803" + "-" + random.nextInt(1000) + "-" + random.nextInt(10000);
         String email = random.nextInt(1000000) + "@custEmail.com";
 
         Customer customer = new Customer();
