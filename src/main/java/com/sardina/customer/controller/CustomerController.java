@@ -1,34 +1,53 @@
 package com.sardina.customer.controller;
 
-
 import com.sardina.customer.model.Customer;
 import com.sardina.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
     public String home() {
         return "index";
     }
 
-    @RequestMapping(path = "/customers", method = RequestMethod.GET)
-    public String getCustomers() {
+    @RequestMapping(path = "/home/customers", method = RequestMethod.GET)
+    public String getAllCustomers(Model model) {
         List<Customer> customers = customerService.getAll();
-            //TODO: templating to render all customers to page.
+            model.addAttribute("customers", customers);
+
         return "customerPage";
     }
 
+    @RequestMapping(path = "/home/customers/customer_{id}", method = RequestMethod.GET)
+    public String get1Customer(@PathVariable("id") int id, Model model) {
+        Customer customer = customerService.getById(id);
+            model.addAttribute("customer", customer);
 
+        return "viewCustomer";
+    }
+
+    @RequestMapping(path = "/home/customers/add_new", method = RequestMethod.POST)
+    public String addCustomer(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
+                              @RequestParam String email) {
+        Customer customer = new Customer();
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.setPhone(phone);
+            customer.setEmail(email);
+                customerService.add(customer);
+
+        return "customerPage";
+    }
 
 
 }
