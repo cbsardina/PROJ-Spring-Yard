@@ -6,8 +6,17 @@
     <title>Customer Page</title>
 </head>
 <body>
-
     <h1>CUSTOMER PAGE</h1>
+    <a href="/addCustomer"><h3>Add a Customer</h3></a>
+
+    <ul>
+        <li th:each="customer: ${customers}">
+            <a th:href="/viewCustomer/${customer.id}"><p>ID: </p><span th:text="${customer.id}"></span></a>
+            <p>Name: <span th:text="${customer.lastName}, ${customer.firstName}"></span></p>
+            <p>Email: <span th:text="${customer.email}"></span></p>
+            <p>Phone: <span th:text="${customer.phone}"></span></p>
+        </li>
+    </ul>
 
 </body>
 </html>

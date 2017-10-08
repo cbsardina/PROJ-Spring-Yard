@@ -6,8 +6,17 @@
     <title>Add Customer</title>
 </head>
 <body>
-
     <h1>ADD CUSTOMER</h1>
+
+    <div class="addCustomer">
+        <form class="addForm" action="/addCustomer" method="POST">
+            <input type="text" name="nameFirst" placeholder="First Name"/>
+            <input type="text" name="nameLast" placeholder="Last Name"/>
+            <input type="email" name="email" placeholder="email@email.com"/>
+            <input type="tel" name="phone" placeholder="XXX-XXX-XXXX"/>
+            <button type="submit" name="create">Update</button>
+        </form>
+    </div>
 
 </body>
 </html>

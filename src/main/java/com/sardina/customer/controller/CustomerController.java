@@ -37,15 +37,15 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/home/customers/add_new", method = RequestMethod.POST)
-    public String addCustomer(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String phone,
-                              @RequestParam String email) {
+    public String addCustomer(@RequestBody String firstName, @RequestBody String lastName, @RequestBody String phone,
+                              @RequestBody String email) {
         Customer customer = new Customer();
             customer.setFirstName(firstName);
             customer.setLastName(lastName);
             customer.setPhone(phone);
             customer.setEmail(email);
                 customerService.add(customer);
-
+        //TODO: may have to make this a redirect??
         return "customerPage";
     }
 

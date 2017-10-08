@@ -1,0 +1,31 @@
+For this project you will:
+
+    - Write Thymeleaf HTML files for Customer objects
+    - Write a controller that uses the customer service layer from the daily project
+
+In the daily project we started "SpringYard" and had you create a customer table, a repository and a service layer. It is time to add a front end that will be used by a customer administrator.
+
+At the end of the daily project you pushed to the jdbc branch and then merged that branch into master. Now create a front-end branch.
+
+The web flow should look like this:
+
+* A Home page that shows a link to the Customers page ✅
+
+*A Customers page that:
+    - Shows all customers by id ✅
+    - The id is a link to "drill down" to view an individual customer ✅
+    - Has a link to the Add Customer page ✅
+
+* An Add Customer page that:
+    - Shows the fields in a form with an Add button to submit the form ✅
+    - After adding a customer shows the Customers page ✅
+
+* A View Customer page that:
+    - Shows all the fields of the customer ✅
+    - Has a back button to return to the Customers page ✅
+
+Create the home page as index.html in the src/main/resources/static directory.
+
+The controller will use the @Autowired CustomerService reference. For example, the route that returns the page that shows all customers will call the method on CustomerService to get all the list of customers and add the list to the model.
+
+Good luck! This is a big project that brings together a lot of concepts, and you will probably need to revisit some of your past lectures and projects as references.
