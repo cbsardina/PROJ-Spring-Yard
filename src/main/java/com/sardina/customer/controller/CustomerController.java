@@ -15,12 +15,17 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String redirHome() {
+        return "redirect:/index";
+    }
+
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public String home() {
         return "index";
     }
 
-    @RequestMapping(path = "/home/customers", method = RequestMethod.GET)
+    @RequestMapping(path = "/customers", method = RequestMethod.GET)
     public String getAllCustomers(Model model) {
         List<Customer> customers = customerService.getAll();
             model.addAttribute("customers", customers);
@@ -28,7 +33,7 @@ public class CustomerController {
         return "customerPage";
     }
 
-    @RequestMapping(path = "/home/customers/customer_{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/customers/{id}", method = RequestMethod.GET)
     public String get1Customer(@PathVariable("id") int id, Model model) {
         Customer customer = customerService.getById(id);
             model.addAttribute("customer", customer);
@@ -36,7 +41,7 @@ public class CustomerController {
         return "viewCustomer";
     }
 
-    @RequestMapping(path = "/home/customers/add_new", method = RequestMethod.POST)
+    @RequestMapping(path = "/customers/add_new", method = RequestMethod.POST)
     public String addCustomer(@RequestBody String firstName, @RequestBody String lastName, @RequestBody String phone,
                               @RequestBody String email) {
         Customer customer = new Customer();
@@ -45,8 +50,8 @@ public class CustomerController {
             customer.setPhone(phone);
             customer.setEmail(email);
                 customerService.add(customer);
-        //TODO: may have to make this a redirect??
-        return "customerPage";
+
+        return "redirect:/customerPage";
     }
 
 
