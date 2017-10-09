@@ -15,19 +15,21 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String redirHome() {
-        return "redirect:/index";
-    }
-
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public String home() {
         return "index";
     }
 
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String redirHome() {
+        return "redirect:/home";
+    }
+
     @RequestMapping(path = "/customers", method = RequestMethod.GET)
     public String getAllCustomers(Model model) {
         List<Customer> customers = customerService.getAll();
+        customers.stream()
+                .forEach(customer -> System.out.println(customer));
             model.addAttribute("customers", customers);
 
         return "customerPage";
@@ -41,6 +43,11 @@ public class CustomerController {
         return "viewCustomer";
     }
 
+    @RequestMapping(path = "/customers/add_new", method = RequestMethod.GET)
+    public String renderAddCust() {
+        return "addCustomer";
+    }
+
     @RequestMapping(path = "/customers/add_new", method = RequestMethod.POST)
     public String addCustomer(@RequestBody String firstName, @RequestBody String lastName, @RequestBody String phone,
                               @RequestBody String email) {
@@ -51,7 +58,7 @@ public class CustomerController {
             customer.setEmail(email);
                 customerService.add(customer);
 
-        return "redirect:/customerPage";
+        return "redirect:/customers";
     }
 
 
