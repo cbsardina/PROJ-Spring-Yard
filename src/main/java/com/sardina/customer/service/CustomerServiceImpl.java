@@ -9,32 +9,34 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
 
-    @Transactional
     @Override
-    public void add(Customer customer) {
-        customerRepository.add(customer); }
+    @Transactional
+    public Customer add(Customer customer) {
+        return customerRepository.save(customer); }
 
-    @Transactional
     @Override
+    @Transactional
     public void update(Customer customer) {
-        customerRepository.update(customer); }
+        customerRepository.save(customer); }
 
     @Override
     public Customer getById(int id) {
-        return customerRepository.getById(id); }
+        return customerRepository.findOne(id); }
 
     @Override
     public List<Customer> getAll() {
-        return customerRepository.getAll(); }
+        return customerRepository.findAll(); }
 
-    @Transactional
     @Override
+    @Transactional
     public void delete(int id) {
         customerRepository.delete(id); }
+
 
 } //=== end CustomerServiceImpl implements CustomerService {}
