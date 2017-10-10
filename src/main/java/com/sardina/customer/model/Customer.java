@@ -1,5 +1,9 @@
 package com.sardina.customer.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "customer")
 public class Customer {
 
     private int id;
@@ -13,6 +17,8 @@ public class Customer {
 
 
   // -- getters/setters --
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -21,6 +27,7 @@ public class Customer {
         this.id = id;
     }
 
+    @Column(name = "firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -29,6 +36,7 @@ public class Customer {
         this.firstName = firstName;
     }
 
+    @Column(name = "lastName")
     public String getLastName() {
         return lastName;
     }
@@ -37,6 +45,7 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -45,6 +54,7 @@ public class Customer {
         this.phone = phone;
     }
 
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -53,7 +63,22 @@ public class Customer {
         this.email = email;
     }
 
-  // -- Override toString() --
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        return id == customer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    // -- Override toString() --
     @Override
     public String toString() {
         return "Customer{" +
