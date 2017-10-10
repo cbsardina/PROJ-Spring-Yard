@@ -44,13 +44,12 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/customers/add_new", method = RequestMethod.GET)
-    public String renderAddCust() {
+    public String addCustomerForm() {
         return "addCustomer";
     }
 
-    @RequestMapping(path = "/customers/add_new", method = RequestMethod.POST)
-    public String addCustomer(@RequestBody String firstName, @RequestBody String lastName, @RequestBody String phone,
-                              @RequestBody String email) {
+    @RequestMapping(path = "/customers", method = RequestMethod.POST)
+    public String addCustomer(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName, @RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email) {
         Customer customer = new Customer();
             customer.setFirstName(firstName);
             customer.setLastName(lastName);

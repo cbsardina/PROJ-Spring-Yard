@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="./styles.css"/>
+    <meta charset="UTF-8" />
     <title>View Customer</title>
+    <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
 
@@ -12,8 +12,7 @@
     <div class="viewCustomer">
             <p>
                 <span th:text="'ID: ' + ${customer.id}"></span>
-                <span th:text="'ID: ' + ${customer.id}"></span>
-                <span th:text="' Name: ' + ${customer.lastName} + ', ' + ${customer.firstName}"></span>
+                <span th:text="' | Name: ' + ${customer.lastName} + ', ' + ${customer.firstName}"></span>
             </p>
             <p>
                 <span th:text="'   Email: ' + ${customer.email} + ' | '"></span>

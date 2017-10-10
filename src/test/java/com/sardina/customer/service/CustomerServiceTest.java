@@ -109,6 +109,7 @@ public class CustomerServiceTest {
         customerService.delete(c1Delete);
         customerService.delete(c2Delete);
 
+
         int afterDeleteDBsize = customerService.getAll().size();
 
         Assert.assertTrue("Verify final DB size equals original DB size", afterDeleteDBsize == initialDBSize);

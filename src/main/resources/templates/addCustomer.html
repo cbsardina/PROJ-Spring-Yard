@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="./styles.css"/>
+    <meta charset="UTF-8" />
     <title>Add Customer</title>
+    <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
     <h1>ADD CUSTOMER</h1>
 
     <div class="addCustomer">
-        <form class="addForm" action="/customers/add_new" method="POST">
-            <input type="text" name="nameFirst" placeholder="First Name"/>
-            <input type="text" name="nameLast" placeholder="Last Name"/>
+        <form name="addForm" action="/customers" method="POST">
+            <input type="text" name="firstName" placeholder="First Name"/>
+            <input type="text" name="lastName" placeholder="Last Name"/>
             <input type="email" name="email" placeholder="email@email.com"/>
-            <input type="tel" name="phone" placeholder="XXX-XXX-XXXX"/>
-            <button type="submit" name="create">Update</button>
+            <input type="tel" name="phone" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please use the following format: XXX-XXX-XXXX"/>
+            <button type="submit">Update</button>
         </form>
     </div>
 
