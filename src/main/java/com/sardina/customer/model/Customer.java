@@ -27,7 +27,7 @@ public class Customer {
         this.id = id;
     }
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -36,7 +36,7 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
@@ -89,4 +89,5 @@ public class Customer {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }

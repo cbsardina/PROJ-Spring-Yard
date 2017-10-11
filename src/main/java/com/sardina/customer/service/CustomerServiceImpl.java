@@ -38,5 +38,5 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void delete(int id) {
         customerRepository.delete(id); }
-//TODO: make sure these are all correct.
+
 } //=== end CustomerServiceImpl implements CustomerService {}
