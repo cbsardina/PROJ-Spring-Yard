@@ -60,5 +60,16 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
+    @ExceptionHandler(value = Exception.class)
+    public String handleDefaultErrors(final Exception exception, Model model) {
+        System.out.println(exception);
+        model.addAttribute("message", exception.getMessage());
+        return "error_message";
+    }
+
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
 
 }
