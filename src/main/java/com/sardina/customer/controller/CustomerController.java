@@ -17,7 +17,7 @@ public class CustomerController {
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public String home() {
-        return "index";
+        return "home";
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)

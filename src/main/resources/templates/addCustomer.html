@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title>Add Customer</title>
     <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-    <h1>ADD CUSTOMER</h1>
 
-    <div class="addCustomer">
-        <form name="addForm" action="/customers" method="POST">
-            <input type="text" name="firstName" placeholder="First Name"/>
-            <input type="text" name="lastName" placeholder="Last Name"/>
-            <input type="email" name="email" placeholder="email@email.com"/>
-            <input type="tel" name="phone" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please use the following format: XXX-XXX-XXXX"/>
-            <button type="submit">Update</button>
+    <header>
+        <h1 style="text-align: center">ADD CUSTOMER</h1>
+    </header>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-around">
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+        <a href="/customers"><h3>Back</h3></a>
+    </div>
+
+    <br/>
+
+    <div class="addCustomer" style="display: flex; flex-direction: row; justify-content: center">
+        <form style="display: flex; flex-direction: column; justify-content: center" name="addForm" action="/customers" method="POST">
+            <input style="margin: .5em auto; font-size: 1em" type="text" name="firstName" placeholder="First Name"/>
+            <input style="margin: .5em auto; font-size: 1em" type="text" name="lastName" placeholder="Last Name"/>
+            <input style="margin: .5em auto; font-size: 1em" type="email" name="email" placeholder="email@email.com"/>
+            <input style="margin: .5em auto; font-size: 1em" type="tel" name="phone" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please use the following format: XXX-XXX-XXXX"/>
+            <button style="margin: .5em auto" type="submit">Update</button>
         </form>
     </div>
-    <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
+
 </body>
 </html>

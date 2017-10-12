@@ -1,8 +1,6 @@
 package com.sardina.customer.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,14 +13,13 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("dataSource")                // <= This was added bc of ____ error for dataSource
     @Autowired
-    private DataSource dataSource;
+    DataSource dataSource;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         // @formatter: off
-        http
+        httpSecurity
                 .authorizeRequests()
                     .antMatchers("/", "/home").permitAll()
                     .antMatchers("/admins-only").hasRole("ADMIN")
@@ -39,10 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+            auth
                 .jdbcAuthentication().dataSource(this.dataSource)
-                .usersByUsernameQuery("select username, authority from authorities where username = ?");
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, authority FROM authorities WHERE username = ?");
 
     }
 }

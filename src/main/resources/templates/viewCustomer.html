@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title>View Customer</title>
@@ -8,24 +8,32 @@
 </head>
 <body>
 
-    <h1>VIEW CUSTOMER</h1>
+    <header>
+        <h1 style="text-align: center">VIEW CUSTOMER</h1>
+    </header>
 
-    <div class="viewCustomer">
-            <p>
-                <span th:text="'ID: ' + ${customer.id}"></span>
-                <span th:text="' | Name: ' + ${customer.lastName} + ', ' + ${customer.firstName}"></span>
-            </p>
-            <p>
-                <span th:text="'   Email: ' + ${customer.email} + ' | '"></span>
-                <span th:text="' Phone: ' + ${customer.phone}"></span>
-            </p>
+    <div style="display: flex; flex-direction: row; justify-content: space-around">
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+        </div>
+        <a href="/customers"><h3>Back</h3></a>
     </div>
+
+
+
     <br/>
-    <a href="/customers"><h3>Back</h3></a>
-    <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+
+    <div style="display: flex; flex-direction: column" class="viewCustomer">
+            <p style="display: flex; justify-content: center">
+                <span style="font-size: 1.5em" th:text="'ID: ' + ${customer.id}"></span>
+                <span style="font-size: 1.5em" th:text="' | Name: ' + ${customer.lastName} + ', ' + ${customer.firstName}"></span>
+            </p>
+            <p style="display: flex; justify-content: center">
+                <span style="font-size: 1.5em" th:text="'   Email: ' + ${customer.email} + ' | '"></span>
+                <span style="font-size: 1.5em" th:text="' Phone: ' + ${customer.phone}"></span>
+            </p>
     </div>
 
 </body>

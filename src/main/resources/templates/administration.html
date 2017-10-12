@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <title>Admin Only</title>
@@ -8,12 +8,20 @@
 </head>
 <body>
 
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+<header>
+    <h1 style="text-align: center; color: red">For admin eyes only</h1>
+</header>
+
+<br/>
+
+<div style="display: flex; flex-direction: row; justify-content: space-around">
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <a href="/customers"><h3>Back</h3></a>
 </div>
-<h1>For admin eyes only</h1>
 
 </body>
 </html>
