@@ -8,6 +8,7 @@
 <body>
     <h1>CUSTOMER PAGE</h1>
     <a href="/customers/add_new"><h3>Add a Customer</h3></a>
+    <a href="/admins-only"><h3>Admins Only</h3></a>
 
     <ul>
         <li th:each="customer: ${customers}">
@@ -19,6 +20,5 @@
             </p>
         </li>
     </ul>
-
 </body>
 </html>

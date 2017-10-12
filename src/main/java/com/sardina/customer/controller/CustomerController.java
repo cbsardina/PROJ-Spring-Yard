@@ -72,4 +72,15 @@ public class CustomerController {
         return "login";
     }
 
+    @RequestMapping(path = "/loggedout", method = RequestMethod.GET)
+    public String logout() {
+        return "redirect:/home";
+    }
+
+    @GetMapping("/admins-only")
+    String admins() {
+        return "administration";
+    }
+
+
 }
