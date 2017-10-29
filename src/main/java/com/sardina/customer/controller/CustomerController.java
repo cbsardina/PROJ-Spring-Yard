@@ -15,17 +15,41 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
+/** * * * * * * * *
+     Login, Logout, & Admin Route
+ */
+    @GetMapping("/login")
+    String login() {
+    return "login";
+}
+
+    @GetMapping("/loggedout")
+    public String logout() {
+        return "redirect:/home";
+    }
+
+    @GetMapping("/admins-only")
+    String admins() {
+        return "administration";
+    }
+
+/** * * * * * * * *
+     /home & '/' redirect:/home
+ */
+    @GetMapping("/home")
     public String home() {
         return "home";
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @GetMapping("/")
     public String redirHome() {
         return "redirect:/home";
     }
 
-    @RequestMapping(path = "/customers", method = RequestMethod.GET)
+/** * * * * * * * *
+     Get All Customers & Get 1
+ */
+    @GetMapping("/customers")
     public String getAllCustomers(Model model) {
         List<Customer> customers = customerService.getAll();
         customers.stream()
@@ -35,7 +59,7 @@ public class CustomerController {
         return "customerPage";
     }
 
-    @RequestMapping(path = "/customers/{id}", method = RequestMethod.GET)
+    @GetMapping("/customers/{id}")
     public String get1Customer(@PathVariable("id") int id, Model model) {
         Customer customer = customerService.getById(id);
             model.addAttribute("customer", customer);
@@ -43,12 +67,15 @@ public class CustomerController {
         return "viewCustomer";
     }
 
-    @RequestMapping(path = "/customers/add_new", method = RequestMethod.GET)
+/** * * * * * * * *
+     Get AddCust Form + Post Add Customer
+ */
+    @GetMapping("/customers/add_new")
     public String addCustomerForm() {
         return "addCustomer";
     }
 
-    @RequestMapping(path = "/customers", method = RequestMethod.POST)
+    @PostMapping("/customers")
     public String addCustomer(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName, @RequestParam(value = "phone") String phone, @RequestParam(value = "email") String email) {
         Customer customer = new Customer();
             customer.setFirstName(firstName);
@@ -60,27 +87,14 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
+/** * * * * * * * *
+     Exception handler
+ */
     @ExceptionHandler(value = Exception.class)
     public String handleDefaultErrors(final Exception exception, Model model) {
         System.out.println(exception);
         model.addAttribute("message", exception.getMessage());
         return "error_message";
     }
-
-    @GetMapping("/login")
-    String login() {
-        return "login";
-    }
-
-    @RequestMapping(path = "/loggedout", method = RequestMethod.GET)
-    public String logout() {
-        return "redirect:/home";
-    }
-
-    @GetMapping("/admins-only")
-    String admins() {
-        return "administration";
-    }
-
 
 }
